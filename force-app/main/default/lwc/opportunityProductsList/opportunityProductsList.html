@@ -1,0 +1,23 @@
+<template>
+    <lightning-card title="Opportunity Products" icon-name="standard:opportunity">
+        <template lwc:if={hasOpportunityProducts}>
+            <lightning-datatable
+                key-field="opportunityLineItemId"
+                data={oppProducts}
+                columns={columns}
+                onrowaction={handleRowAction}
+                hide-checkbox-column="true"
+                show-row-number-column="true">
+           </lightning-datatable>
+        </template>
+<template lwc:else>
+            <div class="slds-m-left_x-small">
+                <h5>Vous n'avez aucune ligne de produits pour le moment.</h5>
+                <ul class="slds-m-left_xx-small">
+                    <li>1. Veuillez tout d'abord sélectionner un Catalogue (Pricebook)</li>
+                    <li>2. Sélectionnez ensuite les produits à ajouter.</li>
+                </ul>
+            </div>
+        </template>
+</lightning-card>
+</template>
