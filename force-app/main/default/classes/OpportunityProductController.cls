@@ -62,4 +62,41 @@ public with sharing class OpportunityProductController {
             throw new AuraHandledException(e.getMessage());
         }
     } 
+    @AuraEnabled
+    public static OpportunityProductWrapper getOpportunityLineItemDetails(ID id){
+
+        if (id == null) {
+            throw new AuraHandledException('L\'ID de l\'Opportunity Product ne peut pas être null.');
+        }
+        try {
+            OpportunityLineItem opportunityLineItem =  [
+                SELECT Id, Quantity, UnitPrice, TotalPrice, Discount, ListPrice,
+                Opportunity.Id, Opportunity.Name, Opportunity.StageName, Opportunity.CloseDate,
+                Product2.Id, Product2.Name, Product2.QuantityInStock__c, Product2.ProductCode
+                FROM OpportunityLineItem
+                WHERE Id = :id
+                LIMIT 1
+            ];
+            OpportunityProductWrapper result =  new OpportunityProductWrapper(
+                opportunityLineItem.Id,
+                opportunityLineItem.Quantity,
+                opportunityLineItem.UnitPrice,
+                opportunityLineItem.TotalPrice,
+                opportunityLineItem.Discount,
+                opportunityLineItem.ListPrice,
+                opportunityLineItem.Opportunity.Id,
+                opportunityLineItem.Opportunity.Name,
+                opportunityLineItem.Opportunity.StageName,
+                opportunityLineItem.Opportunity.CloseDate,
+                opportunityLineItem.Product2.Id,
+                opportunityLineItem.Product2.Name,
+                opportunityLineItem.Product2.QuantityInStock__c,
+                opportunityLineItem.Product2.ProductCode
+            );
+            return result;
+        } catch (Exception e) {
+            throw new AuraHandledException('Erreur : ' + e.getMessage());
+        }
+      
+    }
 }
