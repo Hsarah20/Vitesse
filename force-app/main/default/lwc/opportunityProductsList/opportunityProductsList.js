@@ -16,6 +16,7 @@ export default class OpportunityProductsList extends NavigationMixin(LightningEl
     errors;
     columns = COLUMNS;
     wiredResult;
+    hasErrors = false;
 
     connectedCallback(event) {
         console.log('ID ' + this.recordId)
@@ -35,7 +36,15 @@ export default class OpportunityProductsList extends NavigationMixin(LightningEl
     wiredOpportunityProducts(result) {
         this.wiredResult = result;
         if (result.data) {
-            this.oppProducts = formatData(result.data, 'slds-text-color_error slds-text-title_bold', 'slds-text-color_success slds-text-title_bold');
+            this.oppProducts = formatData(result.data,
+                'slds-text-color_error slds-text-title_bold',
+                'slds-text-color_success slds-text-title_bold',
+                'background-color: #f3f3f3;',
+                ' background-color: #ffffff;'
+            );
+            this.hasErrors = this.oppProducts.some(row => {
+                return (row.quantityInStock - row.quantity) < 0;
+            });
             this.errors = undefined;
         } else if (result.error) {
             this.errors = result.error;

@@ -1,6 +1,12 @@
 <template>
     <lightning-card title="Opportunity Products" icon-name="standard:opportunity">
-        <template lwc:if={hasOpportunityProducts}>
+        <template lwc:if={hasErrors}>
+            <div class="slds-box slds-box_x-small slds-theme_warning slds-m-bottom_medium slds-m-around_xx-small">
+                <p>Vous avez au moins une ligne avec un problème de quantité, veillez supprimer cette ligne ou réduire sa quantité.</p>
+                <p>Si vous avez absolument besoin de plus de produits,veuillez contacter votre administrateur système.</p>
+            </div>
+        </template>
+<template lwc:if={hasOpportunityProducts}>
             <lightning-datatable
                 key-field="opportunityLineItemId"
                 data={oppProducts}

@@ -6,7 +6,8 @@ export const COLUMNS = [
         fieldName: 'quantity',
         type: 'number',
         cellAttributes: {
-            class: { fieldName: 'quantityClass' }
+            class: { fieldName: 'quantityClass' },
+            style: { fieldName: 'bgColor' },
         }
     },
     { label: 'Prix unitaire', fieldName: 'unitPrice', type: 'currency' },
@@ -45,12 +46,13 @@ export function showToast(title, message, variant) {
     });
     this.dispatchEvent(evt);
 }
-export function formatData(data, classError, classSuccess) {
+export function formatData(data, classError, classSuccess, bgColorError, bgColorSuccess) {
     return data.map((row) => {
         const quantityDifference = row.quantityInStock - row.quantity;
         return {
             ...row,
-            quantityClass: quantityDifference < 0 ? classError : classSuccess
+            quantityClass: quantityDifference < 0 ? classError : classSuccess,
+            bgColor: quantityDifference < 0 ? bgColorError : bgColorSuccess
         };
     });
 }
