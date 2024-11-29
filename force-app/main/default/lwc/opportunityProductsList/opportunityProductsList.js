@@ -7,6 +7,7 @@ import deleteOpportunityProduct from '@salesforce/apex/OpportunityProductControl
 import { refreshApex } from '@salesforce/apex';
 import { COLUMNS, showToast, formatData } from './utils/utils';
 import { NavigationMixin } from 'lightning/navigation';
+import { RefreshEvent } from 'lightning/refresh';
 
 export default class OpportunityProductsList extends NavigationMixin(LightningElement) {
     @api recordId;
@@ -40,7 +41,7 @@ export default class OpportunityProductsList extends NavigationMixin(LightningEl
                 'slds-text-color_error slds-text-title_bold',
                 'slds-text-color_success slds-text-title_bold',
                 'background-color: #f3f3f3;',
-                ' background-color: #ffffff;'
+                'background-color: #ffffff;'
             );
             this.hasErrors = this.oppProducts.some(row => {
                 return (row.quantityInStock - row.quantity) < 0;
@@ -81,29 +82,32 @@ export default class OpportunityProductsList extends NavigationMixin(LightningEl
     handleDelete(row) {
         deleteOpportunityProduct({ OpportunityLineItemId: row.opportunityLineItemId })
             .then((result) => {
+                console.log('DELETE MESSAGE' + result)
                 refreshApex(this.wiredResult)
+                this.dispatchEvent(new RefreshEvent());
                 showToast('Succès', result, 'success');
             })
             .catch((error) => {
+                console.log('Catch  ' + error)
                 showToast('Erreur', error.body.message, 'error');
             })
     }
 
     //Show the details of a product line
     handleView(row) {
-        this.navigateToOpportunityProductDetail(row.opportunityLineItemId);
+        console.log("row" + row)
+        this.navigateToOpportunityProductDetail(row.productId);
     }
 
     //Redirect to the component page. 
     navigateToOpportunityProductDetail(id) {
         console.log('Navigating to OpportunityProductDetail with ID:', id);
         this[NavigationMixin.Navigate]({
-            type: 'standard__component',
+            type: 'standard__recordPage',
             attributes: {
-                componentName: 'c__opportunityProductDetail',
-            },
-            state: {
-                c__recordId: id
+                recordId: id,
+                objectApiName: "Product2",
+                actionName: "view"
             }
         });
         console.log('Navigation command executed.');

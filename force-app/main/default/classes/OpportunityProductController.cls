@@ -25,8 +25,6 @@ public with sharing class OpportunityProductController {
             LIMIT 1
         ];
 
-        System.debug('opportunityLineItem ' +opportunityLineItem);
-
         try {        
             Database.DeleteResult result = Database.delete(opportunityLineItem, false);
             if (result.isSuccess()) {

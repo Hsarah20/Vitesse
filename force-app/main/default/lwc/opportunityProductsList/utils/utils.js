@@ -44,7 +44,7 @@ export function showToast(title, message, variant) {
         message: message,
         variant: variant
     });
-    this.dispatchEvent(evt);
+    dispatchEvent(evt);
 }
 export function formatData(data, classError, classSuccess, bgColorError, bgColorSuccess) {
     return data.map((row) => {
