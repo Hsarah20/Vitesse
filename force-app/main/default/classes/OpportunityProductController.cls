@@ -37,24 +37,4 @@ public with sharing class OpportunityProductController {
             throw new AuraHandledException(e.getMessage());
         }
     } 
-    @AuraEnabled
-    public static OpportunityProductWrapper getOpportunityLineItemDetails(ID id){
-
-        if (id == null) {
-            throw new AuraHandledException('L\'ID de l\'Opportunity Product ne peut pas être null.');
-        }
-        try {
-            OpportunityLineItem opportunityLineItem =  [
-                SELECT Id, Quantity, UnitPrice, TotalPrice, Discount, ListPrice,
-                Opportunity.Id, Opportunity.Name, Opportunity.StageName, Opportunity.CloseDate,
-                Product2.Id, Product2.Name, Product2.QuantityInStock__c, Product2.ProductCode
-                FROM OpportunityLineItem
-                WHERE Id = :id
-                LIMIT 1
-            ];
-            return OpportunityProductWrapper.fromOpportunityLineItem(opportunityLineItem);
-        } catch (Exception e) {
-            throw new AuraHandledException('Erreur : ' + e.getMessage());
-        }
-    }
 }
