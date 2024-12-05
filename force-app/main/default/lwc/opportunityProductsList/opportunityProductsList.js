@@ -5,9 +5,10 @@ import PROFILE_NAME_FIELD from '@salesforce/schema/User.Profile.Name';
 import USER_ID from '@salesforce/user/Id';
 import deleteOpportunityProduct from '@salesforce/apex/OpportunityProductController.deleteOpportunityProduct';
 import { refreshApex } from '@salesforce/apex';
-import { COLUMNS, showToast, formatData } from './utils/utils';
+import { COLUMNS, showToast, formatData, labels } from './utils/utils';
 import { NavigationMixin } from 'lightning/navigation';
 import { RefreshEvent } from 'lightning/refresh';
+
 
 export default class OpportunityProductsList extends NavigationMixin(LightningElement) {
     @api recordId;
@@ -18,6 +19,7 @@ export default class OpportunityProductsList extends NavigationMixin(LightningEl
     columns = COLUMNS;
     wiredResult;
     hasErrors = false;
+    labels = labels;
 
     connectedCallback(event) {
         console.log('ID ' + this.recordId)
@@ -82,7 +84,6 @@ export default class OpportunityProductsList extends NavigationMixin(LightningEl
     handleDelete(row) {
         deleteOpportunityProduct({ OpportunityLineItemId: row.opportunityLineItemId })
             .then((result) => {
-                console.log('DELETE MESSAGE' + result)
                 refreshApex(this.wiredResult)
                 this.dispatchEvent(new RefreshEvent());
                 showToast('Succès', result, 'success');
@@ -95,13 +96,12 @@ export default class OpportunityProductsList extends NavigationMixin(LightningEl
 
     //Show the details of a product line
     handleView(row) {
-        console.log("row" + row)
         this.navigateToOpportunityProductDetail(row.productId);
     }
 
     //Redirect to the component page. 
     navigateToOpportunityProductDetail(id) {
-        console.log('Navigating to OpportunityProductDetail with ID:', id);
+        //console.log('Navigating to OpportunityProductDetail with ID:', id);
         this[NavigationMixin.Navigate]({
             type: 'standard__recordPage',
             attributes: {
@@ -110,7 +110,7 @@ export default class OpportunityProductsList extends NavigationMixin(LightningEl
                 actionName: "view"
             }
         });
-        console.log('Navigation command executed.');
+        //console.log('Navigation command executed.');
     }
 
 }

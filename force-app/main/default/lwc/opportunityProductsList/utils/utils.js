@@ -1,8 +1,22 @@
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import PRODUCT_NAME from '@salesforce/label/c.Product_Name';
+import UNIT_PRICE from '@salesforce/label/c.Unit_Price';
+import NO_PRODUCTS from '@salesforce/label/c.No_Products';
+import NO_PRODUCTS_1 from '@salesforce/label/c.No_products_1';
+import NO_PRODUCTS_2 from '@salesforce/label/c.No_products_2';
+import QUANTITY from '@salesforce/label/c.Quantity';
+import TOTAL_PRICE from '@salesforce/label/c.Total_Price';
+import QUANTITY_IN_STOCK from '@salesforce/label/c.Quantity_in_stock';
+import DELETE from '@salesforce/label/c.Delete';
+import SEE_PRODUCT from '@salesforce/label/c.See_product';
+import OPP_PRODUCTS from '@salesforce/label/c.Opp_Products';
+import ERROR_QUANTITY from '@salesforce/label/c.Error_quantity';
+import ERROR_QUANTITY_2 from '@salesforce/label/c.Error_quantity_2';
+
 export const COLUMNS = [
-    { label: 'Nom du produit', fieldName: 'productName', type: 'text' },
+    { label: PRODUCT_NAME, fieldName: 'productName', type: 'text' },
     {
-        label: 'Quantité',
+        label: QUANTITY,
         fieldName: 'quantity',
         type: 'number',
         cellAttributes: {
@@ -10,29 +24,29 @@ export const COLUMNS = [
             style: { fieldName: 'bgColor' },
         }
     },
-    { label: 'Prix unitaire', fieldName: 'unitPrice', type: 'currency' },
-    { label: 'Prix total', fieldName: 'totalPrice', type: 'currency' },
-    { label: 'Quantité en stock', fieldName: 'quantityInStock', type: 'number' },
+    { label: UNIT_PRICE, fieldName: 'unitPrice', type: 'currency' },
+    { label: TOTAL_PRICE, fieldName: 'totalPrice', type: 'currency' },
+    { label: QUANTITY_IN_STOCK, fieldName: 'quantityInStock', type: 'number' },
     {
-        label: 'Supprimer',
+        label: DELETE,
         type: 'button-icon',
         typeAttributes: {
             iconName: 'utility:delete',
             name: 'delete',
-            alternativeText: 'Supprimer',
+            alternativeText: DELETE,
             variant: 'border-filled',
             iconClass: 'slds-icon-text-error'
         }
     },
     {
-        label: 'Voir produit',
+        label: SEE_PRODUCT,
         type: 'button',
         typeAttributes: {
             iconName: 'utility:preview',
             name: 'view',
-            label: 'View Product',
+            label: SEE_PRODUCT,
             variant: 'brand',
-            alternativeText: 'Voir le produit'
+            alternativeText: SEE_PRODUCT
         }
     }
 
@@ -55,4 +69,13 @@ export function formatData(data, classError, classSuccess, bgColorError, bgColor
             bgColor: quantityDifference < 0 ? bgColorError : bgColorSuccess
         };
     });
+}
+
+export const labels = {
+    noProducts: NO_PRODUCTS,
+    noProductsOne: NO_PRODUCTS_1,
+    noProductsTwo: NO_PRODUCTS_2,
+    oppProducts: OPP_PRODUCTS,
+    errorQuantity: ERROR_QUANTITY,
+    errorQuantityTwo: ERROR_QUANTITY_2
 }
