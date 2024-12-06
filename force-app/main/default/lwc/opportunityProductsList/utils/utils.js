@@ -12,6 +12,8 @@ import SEE_PRODUCT from '@salesforce/label/c.See_product';
 import OPP_PRODUCTS from '@salesforce/label/c.Opp_Products';
 import ERROR_QUANTITY from '@salesforce/label/c.Error_quantity';
 import ERROR_QUANTITY_2 from '@salesforce/label/c.Error_quantity_2';
+import UPDATE_PROBLEM_OPP from '@salesforce/label/c.Update_problem_Opp';
+
 
 export const COLUMNS = [
     { label: PRODUCT_NAME, fieldName: 'productName', type: 'text' },
@@ -77,5 +79,6 @@ export const labels = {
     noProductsTwo: NO_PRODUCTS_2,
     oppProducts: OPP_PRODUCTS,
     errorQuantity: ERROR_QUANTITY,
-    errorQuantityTwo: ERROR_QUANTITY_2
+    errorQuantityTwo: ERROR_QUANTITY_2,
+    updateProblemOpp: UPDATE_PROBLEM_OPP,
 }

@@ -8,6 +8,8 @@ import { refreshApex } from '@salesforce/apex';
 import { COLUMNS, showToast, formatData, labels } from './utils/utils';
 import { NavigationMixin } from 'lightning/navigation';
 import { RefreshEvent } from 'lightning/refresh';
+import HAS_STOCK_ISSUE from '@salesforce/schema/Opportunity.Has_Stock_Issue__c';
+import clearHasStockIssueField from '@salesforce/apex/OpportunityProductController.clearHasStockIssueField';
 
 
 export default class OpportunityProductsList extends NavigationMixin(LightningElement) {
@@ -20,10 +22,12 @@ export default class OpportunityProductsList extends NavigationMixin(LightningEl
     wiredResult;
     hasErrors = false;
     labels = labels;
+    hasStockIssue;
 
     connectedCallback(event) {
         console.log('ID ' + this.recordId)
     }
+
     @wire(getRecord, { recordId: '$userId', fields: [PROFILE_NAME_FIELD] })
     wiredUserProfile({ error, data }) {
         if (data) {
@@ -111,6 +115,26 @@ export default class OpportunityProductsList extends NavigationMixin(LightningEl
             }
         });
         //console.log('Navigation command executed.');
+    }
+
+    // Show error message after flow ends
+    @wire(getRecord, { recordId: '$recordId', fields: [HAS_STOCK_ISSUE] })
+    wiredOpportunity({ error, data }) {
+        if (data) {
+            this.hasStockIssue = data.fields.Has_Stock_Issue__c.value
+            if (this.hasStockIssue) {
+                showToast('Erreur', labels.updateProblemOpp, 'error');
+                setTimeout(() => {
+                    this.clearHasStockIssueField();
+                }, 5000);
+            }
+        } else if (error) {
+            console.error('Erreur  opp', error);
+        }
+    }
+
+    clearHasStockIssueField() {
+        clearHasStockIssueField({ opportunityId: this.recordId })
     }
 
 }
