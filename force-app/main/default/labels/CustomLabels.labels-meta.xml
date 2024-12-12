@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>Delete</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Delete</shortDescription>
+        <value>Delete</value>
+    </labels>
+    <labels>
+        <fullName>Error_quantity</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Error quantity</shortDescription>
+        <value>You have at least one line with a quantity problem,please delete this line or reduce its quality.</value>
+    </labels>
+    <labels>
+        <fullName>Error_quantity_2</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Error Quantity 2</shortDescription>
+        <value>If you absolutely need more products, please contact your system administrator.</value>
+    </labels>
+    <labels>
+        <fullName>No_Products</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>No Products Title</shortDescription>
+        <value>You don&apos;t have any product lines at the moment.</value>
+    </labels>
+    <labels>
+        <fullName>No_products_1</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>No Products 1</shortDescription>
+        <value>1.First select a Catalog (Pricebook)</value>
+    </labels>
+    <labels>
+        <fullName>No_products_2</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>No Products 2</shortDescription>
+        <value>2.Then select the products you wish to add.</value>
+    </labels>
+    <labels>
+        <fullName>Opp_Products</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Opp Products</shortDescription>
+        <value>Opportunity products</value>
+    </labels>
+    <labels>
+        <fullName>Product_Name</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Product Name</shortDescription>
+        <value>Product Name</value>
+    </labels>
+    <labels>
+        <fullName>Quantity</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Quantity</shortDescription>
+        <value>Quantity</value>
+    </labels>
+    <labels>
+        <fullName>Quantity_in_stock</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Quantity in stock</shortDescription>
+        <value>Quantity in stock</value>
+    </labels>
+    <labels>
+        <fullName>See_product</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>See product</shortDescription>
+        <value>See Product</value>
+    </labels>
+    <labels>
+        <fullName>Total_Price</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Total Price</shortDescription>
+        <value>Total Price</value>
+    </labels>
+    <labels>
+        <fullName>Unit_Price</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Unit Price</shortDescription>
+        <value>Unit Price</value>
+    </labels>
+    <labels>
+        <fullName>Update_problem_Opp</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Update problem Opp</shortDescription>
+        <value>Your opportunity cannot be updated because you have aquantity problem on your lines.</value>
+    </labels>
+</CustomLabels>
