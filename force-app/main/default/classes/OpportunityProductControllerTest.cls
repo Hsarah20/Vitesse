@@ -123,7 +123,7 @@ public with sharing class OpportunityProductControllerTest {
         );
         insert testOpportunity;
 
-        OpportunityService.clearHasStockIssueField(testOpportunity.Id);
+        OpportunityProductController.clearHasStockIssueField(testOpportunity.Id);
         Opportunity updatedOpportunity = [SELECT Has_Stock_Issue__c FROM Opportunity WHERE Id = :testOpportunity.Id];
         System.assertEquals(false, updatedOpportunity.Has_Stock_Issue__c, 'Le champ Has_Stock_Issue__c devrait être false.');
     }
