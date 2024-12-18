@@ -13,12 +13,14 @@ public with sharing class OpportunityProductWrapper {
     @AuraEnabled public String productName { get; set; }
     @AuraEnabled public Decimal quantityInStock { get; set; }
     @AuraEnabled public String productCode { get; set; }
+    @AuraEnabled public Boolean opportunityHasStockIssue { get; set; }
+
 
      // Constructeur
     public OpportunityProductWrapper(
         Id oliId, Decimal qty, Decimal unitP, Decimal totalP, Decimal disc, Decimal listP,
         Id oppId, String oppName, String stage, Date close,
-        Id prodId, String prodName, Decimal qtyStock, String prodCode) {
+        Id prodId, String prodName, Decimal qtyStock, String prodCode,Boolean oppHasStockIssue) {
         
         this.opportunityLineItemId = oliId;
         this.quantity = qty;
@@ -34,6 +36,7 @@ public with sharing class OpportunityProductWrapper {
         this.productName = prodName;
         this.quantityInStock = qtyStock;
         this.productCode = prodCode;
+        this.opportunityHasStockIssue=oppHasStockIssue;
     }
     // Converting a single OpportunityLineItem
     public static OpportunityProductWrapper fromOpportunityLineItem(OpportunityLineItem item) {
@@ -52,7 +55,8 @@ public with sharing class OpportunityProductWrapper {
             item.Product2Id,
             item.Product2.Name,
             item.Product2.QuantityInStock__c,
-            item.Product2.ProductCode
+            item.Product2.ProductCode,
+            item.Opportunity.Has_Stock_Issue__c
         );
     }
 

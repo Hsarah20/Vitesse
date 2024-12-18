@@ -51,5 +51,4 @@ public with sharing class OpportunityProductController {
         opp.Has_Stock_Issue__c = false;
         update opp;
     }
-
 }
