@@ -16,7 +16,7 @@ public with sharing class OpportunityProductController {
     @AuraEnabled
     public static string deleteOpportunityProduct(ID OpportunityLineItemId){
         if (opportunityLineItemId == null) {
-            throw new AuraHandledException('L\'ID de l\'Opportunity Product ne peut pas être null.');
+            throw new AuraHandledException(Label.delete_opp_null);
         }
         OpportunityLineItem opportunityLineItem ;
 
@@ -28,16 +28,16 @@ public with sharing class OpportunityProductController {
                 LIMIT 1
             ];
         } catch (QueryException e) {
-            throw new AuraHandledException('Aucune ligne correspondante n\'a été trouvée.');
+            throw new AuraHandledException(Label.Delete_Opp_Not_found);
         }
         
         try {
          
             Database.DeleteResult result = Database.delete(opportunityLineItem, false);
             if (result.isSuccess()) {
-                return 'L\'Opportunity Product a été supprimé avec succès.';
+                return Label.Delete_Success;
             } else {
-                throw new AuraHandledException('Erreur lors de la suppression : ' + result.getErrors()[0].getMessage());
+                throw new AuraHandledException(Label.Delete_Opp_Error + result.getErrors()[0].getMessage());
             }
             
         } catch (Exception e) {

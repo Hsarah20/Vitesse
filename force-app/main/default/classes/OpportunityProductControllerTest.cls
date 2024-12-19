@@ -4,6 +4,7 @@ public with sharing class OpportunityProductControllerTest {
     private static void setupTestOpportunityData() {
         Account acc = new Account(Name = 'Test Account');
         insert acc;
+        
         Opportunity opp = new Opportunity(
             Name = 'Test Opportunity',
             StageName = 'Prospecting',
@@ -15,11 +16,9 @@ public with sharing class OpportunityProductControllerTest {
         Product2 product = new Product2(Name = 'Test Product', IsActive = true);
         insert product;
 
-        Pricebook2 pricebook = [SELECT Id FROM Pricebook2 WHERE IsStandard = true LIMIT 1];
-
         PricebookEntry pbe = new PricebookEntry(
             Product2Id = product.Id,
-            Pricebook2Id = pricebook.Id,
+            Pricebook2Id = Test.getStandardPricebookId(),
             UnitPrice = 100.0,
             IsActive = true
         );
@@ -80,11 +79,12 @@ public with sharing class OpportunityProductControllerTest {
         String result = OpportunityProductController.deleteOpportunityProduct(oli.Id);
         Test.stopTest();
 
-        System.assertEquals('L\'Opportunity Product a été supprimé avec succès.', result, 
+        System.assertEquals(Label.Delete_Success, result, 
             'Le message de succès doit être retourné après la suppression.');
 
-        OpportunityLineItem deletedOLI = [SELECT Id FROM OpportunityLineItem WHERE Id = :oli.Id LIMIT 1];
-        System.assertEquals(null, deletedOLI, 'L\'OpportunityLineItem doit être supprimé.');
+        OpportunityLineItem[] deletedOLI = [SELECT Id FROM OpportunityLineItem WHERE Id = :oli.Id];
+        
+        System.assertEquals(0, deletedOLI.size(), 'L\'OpportunityLineItem doit être supprimé.');
     }
 
     @IsTest
@@ -94,7 +94,7 @@ public with sharing class OpportunityProductControllerTest {
             OpportunityProductController.deleteOpportunityProduct(null);
             System.assert(false, 'Une exception devrait être levée si l\'ID est null.');
         } catch (AuraHandledException e) {
-            System.assertEquals('L\'ID de l\'Opportunity Product ne peut pas être null.', e.getMessage(),
+            System.assertEquals(Label.delete_opp_null, e.getMessage(),
                 'Le message d\'exception doit indiquer que l\'ID ne peut pas être null.');
         }
         Test.stopTest();
@@ -107,7 +107,7 @@ public with sharing class OpportunityProductControllerTest {
             OpportunityProductController.deleteOpportunityProduct('000000000000000000');
             System.assert(false, 'Une exception devrait être levée pour un ID inexistant.');
         } catch (AuraHandledException e) {
-            System.assertEquals('Aucune ligne correspondante n\'a été trouvée.', e.getMessage(),
+            System.assertEquals(Label.Delete_Opp_Not_found, e.getMessage(),
                 'Le message d\'exception doit indiquer qu\'aucune ligne correspondante n\'a été trouvée.');
         }
         Test.stopTest();
