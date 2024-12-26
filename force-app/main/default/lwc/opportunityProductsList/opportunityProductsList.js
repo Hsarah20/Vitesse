@@ -32,7 +32,7 @@ export default class OpportunityProductsList extends NavigationMixin(LightningEl
     wiredUserProfile({ error, data }) {
         if (data) {
             this.userProfileName = data.fields.Profile.value.fields.Name.value;
-            // console.log('Profil de l\'utilisateur connecté : ' + this.userProfileName);
+            console.log('Profil de l\'utilisateur connecté : ' + this.userProfileName);
             this.updateColumnsBasedOnProfile();
         } else if (error) {
             // console.error('Erreur lors de la récupération du profil utilisateur', error);
@@ -72,7 +72,7 @@ export default class OpportunityProductsList extends NavigationMixin(LightningEl
             );
         } else {
             this.columns = [...COLUMNS];
-        }
+       }
     }
 
     //Handler delete && view actions

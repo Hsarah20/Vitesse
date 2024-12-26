@@ -6,7 +6,7 @@
                 <p>{labels.errorQuantityTwo}</p>
             </div>
         </template>
-<template lwc:if={hasOpportunityProducts}>
+        <template lwc:if={hasOpportunityProducts}>
             <lightning-datatable
                 key-field="opportunityLineItemId"
                 data={oppProducts}
@@ -14,7 +14,7 @@
                 onrowaction={handleRowAction}>
            </lightning-datatable>
         </template>
-<template lwc:else>
+        <template lwc:else>
             <div class="slds-m-left_x-small">
                 <h5>{labels.noProducts}</h5>
                 <ul class="slds-m-left_xx-small">

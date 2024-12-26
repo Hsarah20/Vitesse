@@ -3,9 +3,9 @@ public with sharing class OpportunityProductController {
     public static List<OpportunityProductWrapper> getOpportunityProducts(ID opportunityId) {
         // Request SOQL
         List<OpportunityLineItem> opportunityLineItems = [
-            SELECT Id, Quantity, UnitPrice, TotalPrice, Discount, ListPrice,
-                   Opportunity.Id, Opportunity.Name, Opportunity.StageName, Opportunity.CloseDate,Opportunity.Has_Stock_Issue__c,
-                   Product2.Id, Product2.Name, Product2.QuantityInStock__c, Product2.ProductCode
+            SELECT Id, Quantity, UnitPrice, TotalPrice, 
+                   Opportunity.Id, Opportunity.Has_Stock_Issue__c,
+                   Product2.Id, Product2.Name, Product2.QuantityInStock__c
             FROM OpportunityLineItem
             WHERE Opportunity.Id = :opportunityId
         ];
